@@ -1,7 +1,8 @@
-define(function(require) {
-
-    var ComponentView = require('coreViews/componentView');
-    var Adapt = require('coreJS/adapt');
+define([
+    'core/js/models/componentModel', // add this
+    'core/js/views/componentView', // change these to use proper paths
+    'core/js/adapt'
+], function(ComponentModel, ComponentView, Adapt) {
 
     var Beforeafter = ComponentView.extend({
 
@@ -50,7 +51,7 @@ define(function(require) {
                 }
 
                 if (this._isVisibleTop && this._isVisibleBottom) {
-                    this.$('.component-widget').off('inview');
+                    this.$('.component__widget').off('inview');
                     //this.setCompletionStatus();
                 }
 
@@ -63,7 +64,7 @@ define(function(require) {
 
         remove: function() {
           // Remove any 'inview' listener attached.
-          this.$('.component-widget').off('inview');
+          this.$('.component__widget').off('inview');
 
           ComponentView.prototype.remove.apply(this, arguments);
         },
@@ -71,20 +72,20 @@ define(function(require) {
         resizeImage: function(width, setupInView) {
             var imageWidth = width === 'medium' ? 'small' : width;
             var imageSrc = (this.model.get('_beforeafter')) ? this.model.get('_beforeafter')[imageWidth] : '';
-            this.$('.beforeafter-widget img').attr('src', imageSrc);
+            this.$('.beforeafter__widget img').attr('src', imageSrc);
 
-            this.$('.beforeafter-widget').imageready(_.bind(function() {
+            this.$('.beforeafter__widget').imageready(_.bind(function() {
                 this.setReadyStatus();
 
                 if (setupInView) {
                     // Bind 'inview' once the image is ready.
-                    this.$('.component-widget').on('inview', _.bind(this.inview, this));
+                    this.$('.component__widget').on('inview', _.bind(this.inview, this));
                 }
             }, this));
         },
 
         beforeAfterReveal: function() {
-          $('.beforeafter-widget').each(function () {
+          $('.beforeafter__widget').each(function () {
             var cur = $(this);
             // Adjust the slider
             var width = cur.width() + 'px';
@@ -96,7 +97,7 @@ define(function(require) {
             // Update sliders on resize. 
             // Because we all do this: i.imgur.com/YkbaV.gif
             $(window).resize(function () {
-              $('.beforeafter-widget').each(function () {
+              $('.beforeafter__widget').each(function () {
                 var cur = $(this);
                 var width = cur.width() + 'px';
                 cur.find('.resize img').css({'width': width, 'min-width': width});
@@ -197,7 +198,7 @@ define(function(require) {
             }
 
             ///SCRIPT BELOW IS FOR ACCESSIBILITY
-            $('.beforeafter-widget').each(function () {
+            $('.beforeafter__widget').each(function () {
                 var whereisit = ( 100 * parseFloat($('.resize').css('width')) / parseFloat($('.resize').parent().css('width')) );
                 var strokeCount = whereisit;
                 var cur = $(this);
@@ -237,7 +238,11 @@ define(function(require) {
         }
     });
 
-    Adapt.register('beforeafter', Beforeafter);
+    //Adapt.register('beforeafter', Beforeafter);
+    Adapt.register('beforeafter', {
+      model: ComponentModel.extend({}), // register the model, it should be an extension of ComponentModel, an empty extension is fine
+      view: Beforeafter
+    });
 
     return Beforeafter;
 

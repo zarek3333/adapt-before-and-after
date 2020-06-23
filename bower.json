@@ -1,7 +1,7 @@
 {
   "name": "adapt-before-and-after",
-  "version": "0.0.9",
-  "framework": ">=2.0.9",
+  "version": "0.1.0",
+  "framework": ">=5.0.0",
   "homepage": "https://github.com/mike-st/adapt-before-and-after",
   "issues": "https://github.com/mike-st/adapt-before-and-after/issues",
   "displayName" : "Before and After",
