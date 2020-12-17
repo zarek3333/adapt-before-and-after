@@ -123,8 +123,8 @@ define([
                 containerWidth = container.outerWidth();
 
                 // Set limits
-                minLeft = containerOffset + 0;
-                maxLeft = containerOffset + containerWidth - dragWidth - 0;
+                var minLeft = containerOffset + 0;
+                var maxLeft = containerOffset + containerWidth - dragWidth - 0;
 
                 // Calculate the dragging distance on mousemove.
                 dragElement.parents().on("mousemove", function (e) {
@@ -133,7 +133,7 @@ define([
                     // Check if it's a mouse or touch event and pass along the correct value
                     var moveX = e.pageX ? e.pageX : e.originalEvent.touches[0].pageX;
 
-                    leftValue = moveX + posX - dragWidth;
+                    var leftValue = moveX + posX - dragWidth;
 
                     // Prevent going off limits
                     if (leftValue <= minLeft) {
@@ -143,7 +143,7 @@ define([
                     }
 
                     // Translate the handle's left value to masked divs width.
-                    widthValue = (leftValue + dragWidth / 2 - containerOffset) * 100 / containerWidth + '%';
+                    var widthValue = (leftValue + dragWidth / 2 - containerOffset) * 100 / containerWidth + '%';
 
                     // Set the new values for the slider and the handle. 
                     // Bind mouseup events to stop dragging.
@@ -166,7 +166,7 @@ define([
                     // Check if it's a mouse or touch event and pass along the correct value
                     var moveX = e.pageX ? e.pageX : e.originalEvent.touches[0].pageX;
 
-                    leftValue = moveX + posX - dragWidth;
+                    var leftValue = moveX + posX - dragWidth;
 
                     // Prevent going off limits
                     if (leftValue <= minLeft) {
@@ -176,7 +176,7 @@ define([
                     }
 
                     // Translate the handle's left value to masked divs width.
-                    widthValue = (leftValue + dragWidth / 2 - containerOffset) * 100 / containerWidth + '%';
+                    var widthValue = (leftValue + dragWidth / 2 - containerOffset) * 100 / containerWidth + '%';
 
                     // Set the new values for the slider and the handle. 
                     // Bind mouseup events to stop dragging.
